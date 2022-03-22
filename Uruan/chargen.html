@@ -1,1 +1,193 @@
-Mon dieu!
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+@import "https://fonts.googleapis.com/css?family=Libre+Baskerville&display=swap";
+body{background:#f7ebcb;font-family:Libre Baskerville,serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:16px}
+h1,h2,h3,h4,h5,h6{color:#7a2b17;text-transform:uppercase;line-height:1.1;margin:24px 0 12px}
+h1:first-letter,h2:first-letter,h3:first-letter,h4:first-letter,h5:first-letter,h6:first-letter{font-size:150%}
+h1{font-size:24px; text-align:center}
+h3{font-size:18px}
+h1,h2{border-bottom:2px solid tan}
+p{line-height:1.4;margin:0; text-align: justify; margin-bottom: 1em}
+p+p{text-indent:24px;margin-top:0!important}
+.box{background-color:#fff;padding:16px;border-left:2px solid #000;border-right:2px solid #000;overflow:hidden;margin:16px 0}
+
+
+
+.Score {
+  display:inline-block;
+  width: 16%;
+  text-align: center;
+}
+.Score > * {
+	margin:auto;
+	margin-bottom: 10px;
+	text-align: center;
+}
+.Score > p::before {
+  content: "Kosten: ";
+}
+input{
+	padding: 5px 4px 5px 16px;
+	border: 0;
+	border-radius:10px;
+	background-color: #fff9eb;
+	
+	font-family:Libre Baskerville,serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-size:16px
+}
+input:hover{
+	background-color: white;
+
+}
+#Test{
+	margin-top: 3em;
+	text-align: center;
+	font-size: 20px;
+}
+
+#Test::before {
+  content: "Punkte übrig: ";
+}
+.Scores {
+  width: 90%;
+  margin: auto;
+}
+@media only screen and (max-width: 1150px) {
+  .Scores{
+    width: 100%;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .Score{
+    width: 32%;
+  }
+  .Scores{
+    width: 80%;
+  }
+  #Test{
+	margin-top: 1em;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+.Scores{
+    width: 90%;
+  }
+  .Score{
+    width: 49%;
+  }
+  .Score > * {
+	margin-bottom: 0px;
+  }
+  #Test{
+	margin-top: 1.5em;
+  }
+  
+}
+</style>
+</head>
+
+
+<body>
+<h1>Uruan Eigenschaften Rechner</h1>
+
+<div class="Scores">
+<p>
+Ein Held besitzt zum Zeitpunkt der Generierung 22 Eigenschaftspunkte, mit denen die sechs verschiedenen Eigenschaftswerte gesteigert werden können. Jeder Eigenschaftswert kostet eine gewisse Menge an Eigenschaftspunkten, die jeweils unter der Eigenschaft angegeben sind. Übrige Punkte verfallen, es sollten also alle 22 Eigenschaftspunkte ausgegeben werden.
+</p>
+<div class="Score">
+	<h3>Stärke</h3>
+	<input type=number min="5" max="15" value="10" id="iSTR" name=Con>
+	<p id="kSTR">8</p>
+</div>
+<div class="Score">
+	<h3>Gewandheit</h3>
+	<input type=number min="5" max="15" value="10" id="iDEX" name=Con>
+	<p id="kDEX">8</p>
+</div>
+<div class="Score">
+	<h3>Konstitution</h3>
+	<input type=number min="5" max="15" value="10" id="iCON" name=Con>
+	<p id="kCON">8</p>
+</div>
+<div class="Score">
+	<h3>Intelligenz</h3>
+	<input type=number min="5" max="15" value="10" id="iINT" name=Con>
+	<p id="kINT">8</p>
+</div>
+<div class="Score">
+	<h3>Weisheit</h3>
+	<input type=number min="5" max="15" value="10" id="iWIS" name=Con>
+	<p id="kWIS">8</p>
+</div>
+<div class="Score">
+	<h3>Charisma</h3>
+	<input type=number min="5" max="15" value="10" id="iCHA" name=Con>
+	<p id="kCHA">8</p>
+</div>
+</div>
+<p id="Test"> Hi </p>	
+<script>
+
+document.querySelectorAll('.Score > input').forEach(item => {
+  item.addEventListener('input', event => {
+    refreshScores();
+  })
+})
+
+let test = document.getElementById("Test");
+let costss = []
+costss.push(document.querySelector("#kSTR"));
+costss.push(document.querySelector("#kDEX"));
+costss.push(document.querySelector("#kCON"));
+costss.push(document.querySelector("#kINT"));
+costss.push(document.querySelector("#kWIS"));
+costss.push(document.querySelector("#kCHA"));
+
+function refreshScores(){
+  let scores = []
+  document.querySelectorAll('.Score > input').forEach(item => {
+	scores.push(item.value);
+})
+  let costs = 0
+  for (let scoredex in scores){
+    score = scores[scoredex];
+	let thisscore = 0
+    if (score == 5)
+	  thisscore = -3;
+	else if (score == 6)
+	  thisscore = -2;
+	else if (score == 7)
+	  thisscore = -1;
+	else if (score == 9)
+	  thisscore = 1;
+	else if (score == 10)
+	  thisscore = 2;
+	else if (score == 11)
+	  thisscore = 3;
+	else if (score == 12)
+	  thisscore = 4;
+	else if (score == 13)
+	  thisscore = 5;
+	else if (score == 14)
+	  thisscore = 7;
+	else if (score == 15)
+	  thisscore = 9;
+	console.log("This score: " + score + "Score: " + thisscore);
+	costs += thisscore;
+	costss[scoredex].innerHTML = thisscore;
+  }
+  let control = 22-costs;
+  if (control < 0)
+	test.style.color="red";
+  else
+	test.style.color="black";
+
+  test.innerHTML = control;
+}
+refreshScores();
+</script>
+</body>
+</html>
